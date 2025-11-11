@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Student - Student Management System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: white;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-primary {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .btn-primary.btn-cancel {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-primary.btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-primary.btn-cancel:hover {
+            background-color: #45a049;
+        }
+        .btn-primary.btn-danger:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon">⚠️</div>
+                <h2>Confirm Deletion</h2>
+            </div>
+            
+            <div class="modal-body">
+                <p>Are you sure you want to permanently delete the record for:</p>
+                <strong>{{ student.name }}</strong>
+                <p style="margin-top: 16px; color: #ea4335; font-size: 13px;">This action cannot be undone.</p>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="modal-actions">
+                    <a href="{% url 'student_list' %}" class="btn-primary btn-cancel" style="flex: 1; text-align: center;">Cancel</a>
+                    <button type="submit" class="btn-primary btn-danger">Confirm Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

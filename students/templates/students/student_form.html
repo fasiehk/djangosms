@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ action }} Student - Student Management System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .header { background-color: #f4f4f9; padding: 20px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content-card { max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .form-row { display: flex; justify-content: space-between; }
+        .form-row .form-group { flex: 1; margin-right: 10px; }
+        .form-row .form-group:last-child { margin-right: 0; }
+        .form-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
+        .btn-primary { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn-cancel { padding: 10px 20px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px; display: inline-block; }
+        .btn-cancel:hover { background-color: #c82333; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ action }} Student</h1>
+    </div>
+
+    <div class="content-card">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_name">Full Name</label>
+                {{ form.name }}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_email">Email Address</label>
+                {{ form.email }}
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="id_age">Age</label>
+                    {{ form.age }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_course">Enrolled Course</label>
+                    {{ form.course }}
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <a href="{% url 'student_list' %}" class="btn-cancel">Cancel</a>
+                <button type="submit" class="btn-primary">
+                    {% if action == 'Create' %}Add Student{% else %}Update Student{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
